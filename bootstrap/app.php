@@ -6,6 +6,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Middleware\Redirect;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -13,20 +14,20 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::prefix('admin')
             ->as('admin.')
             ->middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('route/admin.php'));
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/admin.php'));
 
             Route::prefix('owner')
             ->as('owner.')
             ->middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('route/owner.php'));
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/owner.php'));
 
             Route::prefix('/')
             ->as('user.')
             ->middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('route/owner.php'));
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
         }
     )
     ->withMiddleware(function (Middleware $middleware) {
@@ -35,24 +36,13 @@ return Application::configure(basePath: dirname(__DIR__))
                 if(Route::is('owner.*')) {
                     return route('owner.login');
                 }elseif(Route::is('admin.*')) {
-                    return route('owner.login');
+                    return route('admin.login');
                 }else{
                     return route('user.login');
                 }
             };
-
-            if(Auth::guard('user')->check() && $request->routeIs('user.*')) {
-                return redirect('/dashboard');
-            }
-
-            if(Auth::guard('owner')->check() && $request->routeIs('owner.*')) {
-                return redirect('/owner/dashboard');
-            }
-
-            if(Auth::guard('admin')->check() && $request->routeIs('admin.*')) {
-                return redirect('/admin/dashboard');
-            }
         });
+        // $middleware->append(Redirect::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
