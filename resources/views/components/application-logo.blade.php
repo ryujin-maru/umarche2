@@ -1,3 +1,3 @@
-<div class="w-28">
+<div class="">
     <img src="{{asset('images/logo.png')}}">
 </div>
