@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Models\Owner;
+use Carbon\Carbon;
 
 class OwnersController extends Controller
 {
@@ -19,7 +21,12 @@ class OwnersController extends Controller
 
     public function index()
     {
-        //
+        $data_now = Carbon::now();
+        $data_parse = Carbon::parse(now());
+
+        $e_all = Owner::all();
+        
+        return view('admin.owners.index',compact('e_all'));
     }
 
     /**
