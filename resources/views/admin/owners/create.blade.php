@@ -15,37 +15,41 @@
                             <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">オーナー登録</h1>
                             </div>
                             <div class="lg:w-1/2 md:w-2/3 mx-auto">
-                            <div class="-m-2">
-                                <div class="p-2 w-1/2 mx-auto">
-                                <div class="relative">
-                                    <label for="name" class="leading-7 text-sm text-gray-600">オーナー名</label>
-                                    <input type="text" id="name" required name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                <x-error :errors=$errors />
+                                <form method="post" action="{{route('admin.owners.store')}}">
+                                @csrf
+                                <div class="-m-2">
+                                    <div class="p-2 w-1/2 mx-auto">
+                                    <div class="relative">
+                                        <label for="name" class="leading-7 text-sm text-gray-600">オーナー名</label>
+                                        <input type="text" value="{{old('name')}}" id="name" required name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    </div>
+                                    </div>
+                                    <div class="p-2 w-1/2 mx-auto">
+                                    <div class="relative">
+                                        <label for="email" class="leading-7 text-sm text-gray-600">メールアドレス</label>
+                                        <input required value="{{old('email')}}" type="email" id="email" name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    </div>
+                                    </div>
+                                    <div class="p-2 w-1/2 mx-auto">
+                                    <div class="relative">
+                                        <label for="password" class="leading-7 text-sm text-gray-600">パスワード</label>
+                                        <input required type="password" id="password" name="password" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    </div>
+                                    </div>
+                                    <div class="p-2 w-1/2 mx-auto">
+                                    <div class="relative">
+                                        <label for="password_confirmation" class="leading-7 text-sm text-gray-600">パスワード確認</label>
+                                        <input required type="password" id="password_confirmation" name="password_confirmation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    </div>
+                                    </div>
+                                    <div class="p-2 w-full mt-4 flex justify-around">
+                                    <button type="button" onclick="location.href='{{route('admin.owners.index')}}'" class="text-gray-200 bg-gray-400 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg">戻る</button>
+                                    <button type="submit" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">登録する</button>
+                                    </div>
                                 </div>
-                                </div>
-                                <div class="p-2 w-1/2 mx-auto">
-                                <div class="relative">
-                                    <label for="email" class="leading-7 text-sm text-gray-600">メールアドレス</label>
-                                    <input required type="email" id="email" name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                </div>
-                                </div>
-                                <div class="p-2 w-1/2 mx-auto">
-                                <div class="relative">
-                                    <label for="password" class="leading-7 text-sm text-gray-600">パスワード</label>
-                                    <input required type="password" id="password" name="password" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                </div>
-                                </div>
-                                <div class="p-2 w-1/2 mx-auto">
-                                <div class="relative">
-                                    <label for="password_confirmation" class="leading-7 text-sm text-gray-600">パスワード確認</label>
-                                    <input required type="password" id="password_confirmation" name="password_confirmation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                </div>
-                                </div>
-                                <div class="p-2 w-full mt-4 flex justify-around">
-                                <button onclick="location.href='{{route('admin.owners.index')}}'" class="text-gray-200 bg-gray-400 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg">戻る</button>
-                                <button class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">登録する</button>
-                                </div>
-                                
-                            </div>
+
+                                </form>
                             </div>
                         </div>
                         </section>

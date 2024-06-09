@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Models\Owner;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class OwnersController extends Controller
 {
@@ -39,7 +40,24 @@ class OwnersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Owner::class],
+            'password' => ['required', 'confirmed'],
+        ]);
+
+        Owner::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+
+        return redirect()
+        ->route('admin.owners.index')
+        ->with('message','オーナー登録を実施しました。');
+
+
     }
 
     /**
