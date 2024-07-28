@@ -18,7 +18,7 @@ class ShopController extends Controller
         // dd($request->route('shop'));
         $id = $request->route('shop');
         if(!is_null($id)) {
-            // $shopsOwnerId = Shop::findOrFail($id)->owner->id;
+            $shopsOwnerId = Shop::findOrFail($id)->owner->id;
             if(Auth::id() !== intval($id)) {
                 abort(404); }
         }
