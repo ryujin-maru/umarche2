@@ -18,6 +18,6 @@ class ImageService
         $resizeImage = $img->resize(1920,1080)->encode();
 
         Storage::put('public/'.$folderName.'/'.$fileNameStore,$resizeImage);
-        return $fileName;
+        return $fileNameStore;
     }
 }
