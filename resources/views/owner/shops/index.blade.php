@@ -29,7 +29,7 @@
                         </a>
                     </div>
                     @endforeach
-                    {{$images->links()}}
+                    {{$shops->links()}}
                 </div>
             </div>
         </div>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UploadRequest;
+use App\Services\ImageService;
 
 class ImageController extends Controller
 {
@@ -41,7 +42,19 @@ class ImageController extends Controller
      */
     public function store(UploadRequest $request)
     {
-        dd($request);
+        $imageFiles = $request->file('files');
+        if(!is_null($imageFiles)) {
+            foreach($imageFiles as $imageFile) {
+                $filenameToStore = ImageService::upload($imageFile,'products');
+                Image::create([
+                    'owner_id' => Auth::id(),
+                    'filename' => $filenameToStore,
+                ]);
+            }
+        }
+
+        return to_route('owner.images.index')
+        ->with(['message'=>'画像登録をを実施しました。','status'=>'info']);
     }
 
     /**
