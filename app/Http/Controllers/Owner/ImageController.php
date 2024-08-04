@@ -14,7 +14,7 @@ class ImageController extends Controller
     public function __construct(Request $request) {
         $id = $request->route('image');
         if(!is_null($id)) {
-            $imagesId = Image::findOrFail($id)->owner->get();
+            $imagesId = Image::findOrFail($id)->owner->id;
             if(Auth::id() !== intval($imagesId)) {
                 abort(404); }
         }
@@ -58,19 +58,12 @@ class ImageController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        $image = Image::findOrFail($id);
+        return view('owner.images.edit',compact('image'));
     }
 
     /**
@@ -78,7 +71,16 @@ class ImageController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'title' => ['string', 'max:50'],
+        ]);
+
+        $image = Image::findOrFail($id);
+        $image->title = $request->title;
+        $image->save();
+
+        return to_route('owner.images.index')
+        ->with(['message'=>'画像情報を更新しました。','status'=>'info']);
     }
 
     /**
