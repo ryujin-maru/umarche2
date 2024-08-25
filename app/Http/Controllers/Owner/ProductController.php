@@ -3,16 +3,26 @@
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
+use App\Models\Owner;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(Request $request) {
+        $id = $request->route('product');
+        if(!is_null($id)) {
+            $productId = Product::findOrFail($id)->shop->owner->id;
+            if(Auth::id() !== intval($productId)) {
+                abort(404); }
+        }
+    }
+
     public function index()
     {
-        //
+        $ownerInfo = Owner::with('shop.product.imageFirst')->where('id',Auth::id())->get();
+        return view('owner.products.index',compact('ownerInfo'));
     }
 
     /**
