@@ -10,7 +10,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <x-error :errors=$errors />
+                    <x-flash-message status="session('status')" />
                     <form method="post" action="{{route('owner.products.update',['product'=>$product->id])}}">
+                        @method('PUT')
                         @csrf
                         <div class="-m-2">
                             <div class="p-2 w-1/2 mx-auto">
@@ -99,10 +101,10 @@
                             <div class="p-2 w-1/2 mx-auto">
                                 <div class="relative flex justify-around">
                                     <div>
-                                        <input type="radio" name="is_selling" class="mr-2" value="1" @if($product->is_selling == 1){checked} @endif>販売中
+                                        <input type="radio" name="is_selling" class="mr-2" value="1" @if($product->is_selling == 1) checked @endif>販売中
                                     </div>
                                     <div>
-                                        <input class="mr-2" type="radio" name="is_selling" value="0" @if($product->is_selling == 0){checked} @endif>停止中
+                                        <input class="mr-2" type="radio" name="is_selling" value="0" @if($product->is_selling == 0) checked @endif>停止中
                                     </div>
                                 </div>
                             </div>
