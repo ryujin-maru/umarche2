@@ -31,6 +31,9 @@ return Application::configure(basePath: dirname(__DIR__))
         }
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->alias([
+            'Constant' => App\Constants\Common::class,
+        ]);
         $middleware->redirectGuestsTo(function(Request $request) {
             if(!$request->expectsJson() ){
                 if(Route::is('owner.*')) {

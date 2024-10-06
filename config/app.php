@@ -123,5 +123,10 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+//     'aliases' => [
+//     // 他のエイリアス
+//     'Constant' => App\Constants\Common::class,
+// ],
+
 
 ];
