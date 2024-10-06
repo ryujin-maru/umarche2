@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Process;
 use Throwable;
 
 class ProductController extends Controller
@@ -122,7 +123,7 @@ class ProductController extends Controller
             $id = $request->route('product');
             return to_route('owner.products.edit',['product' => $id])->with(['message'=>'在庫数が変更されています','status'=>'alert']);
         }else{
-
+            dd($request);
             try {
                 DB::transaction(function() use($request,$product) {
                     
@@ -169,6 +170,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::findOrFail($id)->delete();
+
+        return redirect()->route('owner.products.index')->with(['message'=>'商品を削除しました。','status' => 'alert']);
     }
 }
