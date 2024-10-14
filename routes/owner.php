@@ -15,9 +15,9 @@ use App\Http\Controllers\Owner\ShopController;
 use App\Http\Controllers\Owner\ImageController;
 use App\Http\Controllers\Owner\ProductController;
 
-Route::get('/', function () {
-    return view('owner.welcome');
-});
+// Route::get('/', function () {
+//     return view('owner.welcome');
+// });
 
 Route::get('/dashboard', function () {
     return view('owner.dashboard');
@@ -30,10 +30,10 @@ Route::middleware('auth:owners')->group(function () {
 });
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-                ->name('register');
+    // Route::get('register', [RegisteredUserController::class, 'create'])
+    //             ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    // Route::post('register', [RegisteredUserController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
