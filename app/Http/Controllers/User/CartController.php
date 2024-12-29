@@ -39,4 +39,10 @@ class CartController extends Controller
 
         return to_route('user.cart.index');
     }
+
+    public function delete($id) {
+        Cart::where('product_id',$id)->where('user_id',Auth::id())->delete();
+
+        return to_route('user.cart.index');
+    }
 }
