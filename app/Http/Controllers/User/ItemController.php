@@ -11,12 +11,20 @@ use Illuminate\Support\Facades\DB;
 class ItemController extends Controller
 {
 
-    // public function __construct() {
-    //     $this->middleware('auth:users');
-    // }
+    public function __construct(Request $request) {
+        $id = $request->route()->parameter('item');
 
-    public function index() {
-        $products = Product::availableItems()->get();
+        if(!is_null($id)) {
+            $itemId = Product::availableItems()->where('products.id',$id)->exists();
+            if(!$itemId) {
+                abort(404);
+            }
+        }
+    }
+
+    public function index(Request $request) {
+        // $products = Product::availableItems()->get();
+        $products = Product::availableItems()->sortOrder($request->sort)->get();
         // dd($products);
         return view('user.index',compact('products'));
     }
