@@ -22,7 +22,6 @@ class CartService
             $result = array_merge($product[0],$ownerInfo,$quantity[0]);
             array_push($products,$result);
         }
-        dd($products);
 
         return $products;
     }

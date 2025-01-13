@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\SendThankMail;
-use App\Mail\TestMail;
 use App\Models\PrimaryCategory;
 use App\Models\Product;
 use App\Models\Stock;

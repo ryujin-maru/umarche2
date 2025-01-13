@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Constants\Common;
 use App\Http\Controllers\Controller;
+use App\Jobs\SendThankMail;
 use App\Models\Cart;
 use App\Models\Stock;
 use App\Models\User;
@@ -53,6 +54,10 @@ class CartController extends Controller
         ////
         $items = Cart::where('user_id',Auth::id())->get();
         $products = CartService::getItemsCart($items);
+        $user = User::findOrFail(Auth::id());
+
+        SendThankMail::dispatch($products,$user);
+        dd('っテスト');
         ////
 
         $user = User::findOrFail(Auth::id());
